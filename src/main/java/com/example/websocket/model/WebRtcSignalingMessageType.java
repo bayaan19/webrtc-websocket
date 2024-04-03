@@ -1,4 +1,4 @@
-package com.example.websocket;
+package com.example.websocket.model;
 
 public enum WebRtcSignalingMessageType {
     REQUEST,

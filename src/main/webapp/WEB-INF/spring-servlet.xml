@@ -15,5 +15,7 @@
 
 	<context:component-scan
 		base-package="com.example.springmvc com.example.websocket" />
+		
+		<mvc:resources mapping="/favicon.ico" location="/resources/static/idea.png" />
 
 </beans>

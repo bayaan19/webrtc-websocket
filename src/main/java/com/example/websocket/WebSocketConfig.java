@@ -12,7 +12,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(getWebSocketHandler(), "/websocket-webrtc");
+        registry.addHandler(getWebSocketHandler(), "/websocket-webrtc").setAllowedOrigins("*");
     }
 
     @Bean

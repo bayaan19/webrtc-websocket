@@ -2,14 +2,14 @@ package com.example.websocket.model;
 
 public class WebRtcSignalingMessage {
     /**
-     * Numeric unique ID of the sender (e.g. proxy-id, logged-in-user-seassion-id)
+     * Unique ID of the sender (e.g. proxy-id, logged-in-user-seassion-id)
      */
 
-    private Long from;
+    private String from;
     /**
-     * Numeric unique ID of the receiver (e.g. proxy-id, logged-in-user-seassion-id)
+     * Unique ID of the receiver (e.g. proxy-id, logged-in-user-seassion-id)
      */
-    private Long to;
+    private String to;
 
     /**
      * String representing the message type (e.g., "request", "response" "offer",
@@ -50,19 +50,19 @@ public class WebRtcSignalingMessage {
      */
     private String payload;
 
-    public final Long getFrom() {
+    public final String getFrom() {
         return from;
     }
 
-    public final void setFrom(Long from) {
+    public final void setFrom(String from) {
         this.from = from;
     }
 
-    public final Long getTo() {
+    public final String getTo() {
         return to;
     }
 
-    public final void setTo(Long to) {
+    public final void setTo(String to) {
         this.to = to;
     }
 

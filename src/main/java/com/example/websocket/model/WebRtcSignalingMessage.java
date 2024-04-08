@@ -2,12 +2,12 @@ package com.example.websocket.model;
 
 public class WebRtcSignalingMessage {
     /**
-     * Unique ID of the sender (e.g. proxy-id, logged-in-user-seassion-id)
+     * Unique ID of the sender (e.g. proxy-id, logged-in-user-session-id)
      */
 
     private String from;
     /**
-     * Unique ID of the receiver (e.g. proxy-id, logged-in-user-seassion-id)
+     * Unique ID of the receiver (e.g. proxy-id, logged-in-user-session-id)
      */
     private String to;
 
@@ -30,14 +30,19 @@ public class WebRtcSignalingMessage {
      * 		<th>Example</th>
      * 	</tr>
      * 	<tr>
+     * 		<td>register</td>
+     * 		<td>ID of agent responding to RTSP URLs.</td>
+     * 		<td>12345</td>
+     * 	</tr>
+     * 	<tr>
      * 		<td>request</td>
-     * 		<td>Array of requested RTSP URLs.</td>
-     * 		<td>["rtsp://admin:password@192.168.0.1:554/Streaming/Channels/1"]</td>
+     * 		<td>Comma separated requested RTSP URLs.</td>
+     * 		<td>rtsp://admin:password@192.168.0.1:554/Streaming/Channels/1,...</td>
      * 	</tr>
      * 	<tr>
      * 		<td>response</td>
-     * 		<td>Array of get-at-able RTSP URLs.</td>
-     * 		<td>["rtsp://admin:password@192.168.0.1:554/Streaming/Channels/1"]</td>
+     * 		<td>Comma separated get-at-able RTSP URLs.</td>
+     * 		<td>rtsp://admin:password@192.168.0.1:554/Streaming/Channels/1,...</td>
      * 	</tr>
      * 	<tr>
      * 		<td>offer, answer, candidate</td>

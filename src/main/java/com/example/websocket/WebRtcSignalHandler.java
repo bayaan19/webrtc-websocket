@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class WebRtcSignalHandler extends AbstractWebSocketHandler {
+    private static final String configuration = "{ iceServers: [{ urls: 'turn:ec2-3-111-37-176.ap-south-1.compute.amazonaws.com:3478', username: 'user1', credential: 'pass1key0' }] }";
     private static final Logger logger = LogManager.getLogger(WebRtcSignalHandler.class);
     private static final Map<String, WebSocketSession> sessionMap = new ConcurrentHashMap<>();
     private static final BiMap<String, String> registeredSessionMap = HashBiMap.create();
@@ -25,26 +26,40 @@ public class WebRtcSignalHandler extends AbstractWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         logger.info("Connection established with id {}.", session.getId());
         WebSocketSession oldSession = sessionMap.put(session.getId(), session);
+
+        // Close the old session if exists.
         if (oldSession != null) oldSession.close();
+
+        // Send the configuration to the client.
+        session.sendMessage(new TextMessage(objectMapper.writeValueAsString(new WebRtcSignalingMessage(configuration))));
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         logger.info("Received text message {} from {}.", message, session.getId());
 
-        session.sendMessage(new TextMessage("Hello."));
-
         try {
             WebRtcSignalingMessage webRtcSignalingMessage = objectMapper.readValue(message.getPayload(), WebRtcSignalingMessage.class);
             logger.info("Parsed message: {}", webRtcSignalingMessage);
 
+            /* Set the sender peer's session ID as from address. */
+            webRtcSignalingMessage.setFrom(session.getId());
+
             switch (webRtcSignalingMessage.getType()) {
                 case REGISTER:
+                    String id = webRtcSignalingMessage.getPayload();
+
                     /*
                     Replace the session ID in session map with agent ID to identify receiver of request.
                     sessionMap.put(webRtcSignalingMessage.getPayload(), sessionMap.remove(session.getId()));
                      */
-                    registeredSessionMap.put(webRtcSignalingMessage.getPayload(), session.getId());
+                    String oldSessionId = registeredSessionMap.put(id, session.getId());
+
+                    /* Close the session if already registered. */
+                    if(oldSessionId != null) {
+                        sessionMap.remove(oldSessionId).close();
+                    }
+
                     break;
                 case REQUEST:
                     /*
@@ -52,8 +67,6 @@ public class WebRtcSignalHandler extends AbstractWebSocketHandler {
                      */
                     /* Other peer identified using an ID and should be registered by active socket connection. */
                     if (registeredSessionMap.containsKey(webRtcSignalingMessage.getTo())) {
-                        /* Set the sender peer's session ID as from address. */
-                        webRtcSignalingMessage.setFrom(session.getId());
                         /* Set the remote peer's registered session ID as to address. */
                         webRtcSignalingMessage.setTo(registeredSessionMap.get(webRtcSignalingMessage.getTo()));
                         /* Forward the message to other peer. */

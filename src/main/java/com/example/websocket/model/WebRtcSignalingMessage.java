@@ -55,6 +55,11 @@ public class WebRtcSignalingMessage {
      */
     private String payload;
 
+    public WebRtcSignalingMessage(String configuration) {
+        this.payload = configuration;
+        this.type = WebRtcSignalingMessageType.CONFIG;
+    }
+
     public final String getFrom() {
         return from;
     }

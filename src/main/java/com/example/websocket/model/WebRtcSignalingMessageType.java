@@ -1,6 +1,7 @@
 package com.example.websocket.model;
 
 public enum WebRtcSignalingMessageType {
+    CONFIG,
     REGISTER,
     REQUEST,
     RESPONSE,

@@ -7,5 +7,6 @@ public enum WebRtcSignalingMessageType {
     RESPONSE,
     OFFER,
     ANSWER,
-    CANDIDATE
+    CANDIDATE,
+    ERROR
 }

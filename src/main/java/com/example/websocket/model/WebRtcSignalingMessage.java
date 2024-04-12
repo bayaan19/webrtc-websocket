@@ -55,40 +55,72 @@ public class WebRtcSignalingMessage {
      */
     private String payload;
 
-    public WebRtcSignalingMessage(String configuration) {
-        this.payload = configuration;
-        this.type = WebRtcSignalingMessageType.CONFIG;
-    }
+	public WebRtcSignalingMessage() {
+	}
 
-    public final String getFrom() {
-        return from;
-    }
+	public WebRtcSignalingMessage(String configuration) {
+		this.type = WebRtcSignalingMessageType.CONFIG;
+		this.payload = configuration;
+	}
 
-    public final void setFrom(String from) {
-        this.from = from;
-    }
+	public WebRtcSignalingMessage(WebRtcSignalingMessageType type, String payload) {
+		this.type = type;
+		this.payload = payload;
+	}
 
-    public final String getTo() {
-        return to;
-    }
+	public WebRtcSignalingMessage(String to, WebRtcSignalingMessageType type, String payload) {
+		this.to = to;
+		this.type = type;
+		this.payload = payload;
+	}
 
-    public final void setTo(String to) {
-        this.to = to;
-    }
+	public WebRtcSignalingMessage(String from, String to, WebRtcSignalingMessageType type, String payload) {
+		this.from = from;
+		this.to = to;
+		this.type = type;
+		this.payload = payload;
+	}
 
-    public final WebRtcSignalingMessageType getType() {
-        return type;
-    }
+	public final String getFrom() {
+		return from;
+	}
 
-    public final void setType(WebRtcSignalingMessageType type) {
-        this.type = type;
-    }
+	public final void setFrom(String from) {
+		this.from = from;
+	}
 
-    public final String getPayload() {
-        return payload;
-    }
+	public final String getTo() {
+		return to;
+	}
 
-    public final void setPayload(String payload) {
-        this.payload = payload;
-    }
+	public final void setTo(String to) {
+		this.to = to;
+	}
+
+	public final WebRtcSignalingMessageType getType() {
+		return type;
+	}
+
+	public final void setType(WebRtcSignalingMessageType type) {
+		this.type = type;
+	}
+
+	public final String getPayload() {
+		return payload;
+	}
+
+	public final void setPayload(String payload) {
+		this.payload = payload;
+	}
+
+	public final WebRtcSignalingMessage withError(String error) {
+		this.type = WebRtcSignalingMessageType.ERROR;
+		this.payload = error;
+		return this;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("WebRtcSignalingMessage [from=%s, to=%s, type=%s, payload=%s]", from, to, type, payload);
+	}
 }

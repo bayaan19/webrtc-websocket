@@ -39,9 +39,19 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>32.0.1-jre</version>
+			<version>25.0-jre</version>
+		</dependency>
+<!--		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava-io</artifactId>
+			<version>r03</version>
 		</dependency>
 		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava-concurrent</artifactId>
+			<version>r03</version>
+		</dependency>
+-->		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.23.1</version>

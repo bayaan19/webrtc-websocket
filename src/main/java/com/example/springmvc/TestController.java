@@ -10,6 +10,6 @@ public class TestController {
 	
 	@GetMapping
     public String test() {
-        return "Hello World, this is a rest controller with this response body.";
+        return "Hello, World!";
     }
 }
